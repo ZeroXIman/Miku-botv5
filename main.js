@@ -325,7 +325,7 @@ Untuk mematikan fitur ini, ketik
   this.copyNForward(m.key.remoteJid, m.message).catch(e => console.log(e, m))
 }
 
-conn.on('message-new', conn.handler)
+conn.on('chat-update', conn.handler)
 conn.on('message-delete', conn.onDelete)
 conn.on('group-add', conn.onAdd)
 conn.on('group-leave', conn.onLeave)
@@ -385,7 +385,7 @@ if (opts['test']) {
     let message = await conn.prepareMessageContent(content, type, opts)
     let waMessage = conn.prepareMessageFromContent(chatId, message, opts)
     if (type == 'conversation') waMessage.key.id = require('crypto').randomBytes(16).toString('hex').toUpperCase()
-    conn.emit('message-new', waMessage)
+    conn.emit('chat-update', waMessage)
   }
   process.stdin.on('data', chunk => conn.sendMessage('123@s.whatsapp.net', chunk.toString().trimEnd(), 'conversation'))
 } else {
